@@ -50,12 +50,22 @@ def generate_batch(batch_size=5):
         {"instruction": "Validate UUID v4", "output": r"[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}"}
     ]
 
-    with open(DATASET_FILE, "a") as f:
-        for sample in synthetic_samples:
+
+    # Python Synthetic Data (Batch 1)
+    python_samples = [
+        {"instruction": "Write a FastAPI endpoint for user login", "output": "from fastapi import APIRouter, Depends, HTTPException..."},
+        {"instruction": "Create a Pydantic model for a User", "output": "class User(BaseModel):\n    id: UUID\n    email: EmailStr..."},
+        {"instruction": "Write a pytest fixture for database connection", "output": "@pytest.fixture\ndef db_session():..."},
+        {"instruction": "Binary search implementation in Python", "output": "def binary_search(arr, target):..."},
+        {"instruction": "Async context manager for file handling", "output": "class AsyncFile:..."}
+    ]
+
+    with open("datasets/python_training.jsonl", "a") as f:
+        for sample in python_samples:
             json.dump(sample, f)
             f.write("\n")
             
-    print(f"✅ Batch complete. Saved to {DATASET_FILE}")
+    print(f"✅ Python Batch complete. Saved to datasets/python_training.jsonl")
 
 if __name__ == "__main__":
     generate_batch()
